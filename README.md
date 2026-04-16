@@ -4,9 +4,14 @@ A ~30-line GitHub Action that mimics GitHub's Enterprise-only merge queue on Tea
 
 ## What it does
 
-On every push to `main`, walks all open PRs targeting `main` and calls the REST
-"Update branch" endpoint on each. PRs that can cleanly merge get updated; PRs
+On every push to `main`, walks all open PRs targeting `main` that have
+**auto-merge enabled** and calls the REST "Update branch" endpoint on each.
+PRs without auto-merge are left alone (they're still being iterated on). PRs
 with conflicts are skipped (logged, not failed).
+
+Using auto-merge as the signal is the point: the author has explicitly said
+"this is ready — land it when the gates open." Everything else is in-progress
+and shouldn't be churned.
 
 Combined with the branch protection rule **"Require branches to be up to date
 before merging"**, this is effectively a serial merge queue: no PR can land
