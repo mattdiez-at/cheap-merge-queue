@@ -1,5 +1,5 @@
 line 1: original
 line 2: original
-line 3: original
+line 3: from PR B
 line 4: original
 line 5: original
