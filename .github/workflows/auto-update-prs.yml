@@ -24,6 +24,7 @@ jobs:
             core.info(`found ${prs.length} open PR(s) targeting main`);
             for (const pr of prs) {
               if (pr.draft) { core.info(`skip #${pr.number} (draft)`); continue; }
+              if (!pr.auto_merge) { core.info(`skip #${pr.number} (auto-merge not enabled)`); continue; }
               try {
                 await github.rest.pulls.updateBranch({
                   owner: context.repo.owner,
